@@ -5,15 +5,16 @@
 </script>
 
 <div class="container" on:click>
-    <CoverImage artwork={album.attributes.artwork} />
+    <CoverImage width="100%" aspectRatio="1:1" artwork={album.attributes.artwork} />
     {album.attributes.name}
 </div>
 
 <style>
     .container {
-        display: flex;
+        /* display: flex;
         align-items: center;
         margin-bottom: 10px;
-        background: #00ff00;
+        background: #00ff00; */
+        margin: 10px;
     }
 </style>

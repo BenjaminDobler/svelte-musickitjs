@@ -6,6 +6,7 @@
 	import Player from "./components/player/Player.svelte";
 	import { store } from "./store/musicstore";
 	import { addToPlaylist, loadAlbum, loadAlbums } from "./service/musikkit";
+import Button from "./components/Button.svelte";
 
 	onMount(async () => {
 		await loadAlbums();
@@ -23,33 +24,30 @@
 	$: console.log("Tracks: ", $store.selectedAlbum?.relationships.tracks);
 </script>
 
-<main>
+<svelte:head>
 	<script
 		src="https://js-cdn.music.apple.com/musickit/v1/musickit.js"></script>
+</svelte:head>
 
-	<Player />
+<Button></Button>
 
-	{#if $store.selectedView === "albums"}
-		<Albums albums={$store.albums} on:album={albumSelected} />
-	{/if}
+<Player />
 
-	{#if $store.selectedView === "album"}
-		<button
-			on:click={() =>
-				store.update((data) => ({ ...data, selectedView: "albums" }))}
-			>Back</button
-		>
-		<AlbumDetail album={$store.selectedAlbum} on:playTrack={playTrack} />
-	{/if}
-</main>
+{#if $store.selectedView === "albums"}
+	<Albums albums={$store.albums} on:album={albumSelected} />
+{/if}
+
+{#if $store.selectedView === "album"}
+	<button
+		on:click={() =>
+			store.update((data) => ({ ...data, selectedView: "albums" }))}
+		>Back</button
+	>
+	<AlbumDetail album={$store.selectedAlbum} on:playTrack={playTrack} />
+{/if}
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+	
 
 	h1 {
 		color: #ff3e00;
@@ -62,5 +60,12 @@
 		main {
 			max-width: none;
 		}
+	}
+
+	:global(body) {
+		margin: 0;
+		padding: 0;
+
+		--primaryColor: #fa2d48
 	}
 </style>

@@ -1,18 +1,51 @@
-
 <script>
-import { playerStore } from "../../store/musicstore";
-import CoverImage from "../CoverImage.svelte";
+    import { playerStore } from "../../store/musicstore";
+    import CoverImage from "../CoverImage.svelte";
 
-import Slider from "../slider/Slider.svelte";
+    import Slider from "../slider/Slider.svelte";
+import PlayIcon from "./PlayIcon.svelte";
 
-let value;
+    let value;
 </script>
 
-Player {$playerStore.playingTrack?.attributes.name}
-<CoverImage artwork={$playerStore.playingTrack?.artwork} />
-<Slider minValue="{0}" maxValue="{$playerStore.currentPlaybackduration}" bind:value="{$playerStore.currentPlaybacktime}"></Slider>
-{$playerStore.currentPlaybacktime}
+<div class="container">
+    <CoverImage artwork={$playerStore.playingTrack?.artwork} />
+
+    <div class="info-container">
+        <div class="info-container">
+            <div>{$playerStore.playingTrack?.attributes.name}</div>
+            <div>
+                {$playerStore.playingTrack?.attributes.artistName} -
+                {$playerStore.playingTrack?.attributes.albumName}
+            </div>
+        </div>
+    </div>
+
+    <Slider
+        minValue={0}
+        maxValue={$playerStore.currentPlaybackduration}
+        bind:value={$playerStore.currentPlaybacktime}
+    />
+    {$playerStore.currentPlaybacktime}
+
+    <PlayIcon />
+
+</div>
 
 <style>
+    .container {
+        display: flex;
+        background: #252126;
+        color: #a19da4;
+        height: 80px;
+        overflow: hidden;
+    }
 
+    .info-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #464246;
+        border-radius: 6px;
+    }
 </style>
