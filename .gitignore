@@ -1,4 +1,6 @@
 /node_modules/
 /public/build/
 
+src/credentials.js
+
 .DS_Store
