@@ -10,5 +10,6 @@ export const store = writable({
 export const playerStore = writable({
 	currentPlaybacktime: 0,
 	currentPlaybackduration: 0,
-	currentTrack: null
+	currentTrack: null,
+	playingTrack: null
 });

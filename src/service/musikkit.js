@@ -40,6 +40,7 @@ export async function init() {
 
     musicKit.addEventListener('queueItemsDidChange', (e) => {
         console.log('queueItemsDidChange ', e);
+        playerStore.update(data=>({...data, playingTrack: e[0]}))
     });
 
     musicKit.addEventListener('playbackStateDidChange', (e) => {
