@@ -35,7 +35,6 @@ import PlayIcon from "./PlayIcon.svelte";
 <style>
     .container {
         display: flex;
-        background: #252126;
         color: #a19da4;
         height: 80px;
         overflow: hidden;

@@ -23,6 +23,7 @@
 
 <style>
     .album-container {
+        padding-top: 75px;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
     }
