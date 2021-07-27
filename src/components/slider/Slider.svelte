@@ -1,5 +1,7 @@
 <script>
-    import { onMount } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
+
+    const dispatch = createEventDispatcher();
 
     export let minValue = 0;
     export let maxValue = 100;
@@ -38,6 +40,8 @@
             }
             const percentage = x / maxX;
             value = minValue + (maxValue - minValue) * percentage;
+            dispatch('scrub', value);
+            
         }
     }
 

@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import AlbumDetail from "./AlbumDetail.svelte";
-
 	import Albums from "./Albums.svelte";
-	import Player from "./components/player/Player.svelte";
 	import { store } from "./store/musicstore";
 	import { addToPlaylist, loadAlbum, loadAlbums } from "./service/musikkit";
-	import Button from "./components/Button.svelte";
 	import Header from "./components/Header.svelte";
 	import Navigation from "./components/Navigation.svelte";
 
@@ -49,19 +46,6 @@
 </div>
 
 <style>
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-
 	:global(body) {
 		position: relative;
 		margin: 0;
@@ -75,7 +59,7 @@
 	.main-content {
 		position: absolute;
 		left: 260px;
-		top : 0;
+		top: 0;
 		right: 0;
 	}
 </style>

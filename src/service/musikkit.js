@@ -1,5 +1,6 @@
 import { store, playerStore } from "../store/musicstore";
 import { developerToken } from "../credentials";
+import { get } from "svelte/store";
 
 
 
@@ -8,6 +9,7 @@ import { developerToken } from "../credentials";
 export let albums = [];
 let musicKit;
 let setup;
+let initialized = false;
 
 export async function init() {
     setup = new Promise((resolve) => {
@@ -24,15 +26,16 @@ export async function init() {
     });
 
     musicKit = await setup;
+    initialized = true;
 
     musicKit.addEventListener('playbackProgressDidChange', (e) => {
         console.log('playbackProgressDidChange ', e.progress);
     });
-    
+
     musicKit.addEventListener('playbackDurationDidChange', (e) => {
         console.log('playbackDurationDidChange ', e);
     });
-    
+
     musicKit.addEventListener('playbackTimeDidChange', (e) => {
         playerStore.update(data => ({ ...data, currentPlaybackduration: e.currentPlaybackDuration, currentPlaybacktime: e.currentPlaybackTime }));
 
@@ -40,11 +43,12 @@ export async function init() {
 
     musicKit.addEventListener('queueItemsDidChange', (e) => {
         console.log('queueItemsDidChange ', e);
-        playerStore.update(data=>({...data, playingTrack: e[0]}))
+        playerStore.update(data => ({ ...data, playingTrack: e[0] }))
     });
 
     musicKit.addEventListener('playbackStateDidChange', (e) => {
         console.log('playbackStateDidChange ', e);
+        playerStore.update(data => ({ ...data, state: e.state }));
     });
 
     try {
@@ -76,8 +80,7 @@ export function formatArtwork(artwork, width = 100, height = 100) {
 }
 
 export function formatMediaTime(ms) {
-    
-    return MusicKit.formatMediaTime(ms);
+    return initialized ? MusicKit.formatMediaTime(ms) : 0;
 }
 
 
@@ -91,5 +94,22 @@ export function addToPlaylist(track) {
         });
 }
 
+export function pause() {
+    console.log('pause');
+    musicKit.pause();
+}
+
+export function togglePlay() {
+    // TODO: get is supposed to be unperformant...
+    if (get(playerStore).state === 3) {
+        musicKit.player.play();
+    } else {
+        musicKit.player.pause();
+    }
+}
+
+export function seekToTime(seconds) {
+    musicKit.player.seekToTime(seconds);
+}
 
 init();

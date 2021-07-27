@@ -17,7 +17,7 @@ import { formatMediaTime } from "./service/musikkit";
 </script>
 
 <section>
-    <CoverImage artwork={album.attributes.artwork} width="220px" height="220px" />
+    <CoverImage artwork={album.attributes.artwork} width="270px" height="270px" />
     Artist name: {album?.attributes?.artistName}
 
     Tracks {album.relationships.tracks.data.length}
@@ -42,6 +42,7 @@ import { formatMediaTime } from "./service/musikkit";
 
 <style>
     section {
+        padding: 30px;
         padding-top: 60px;
     }
 

@@ -1,11 +1,26 @@
 <script>
+    import {
+        formatMediaTime,
+        pause,
+        seekToTime,
+        togglePlay,
+    } from "../../service/musikkit";
+
     import { playerStore } from "../../store/musicstore";
     import CoverImage from "../CoverImage.svelte";
 
     import Slider from "../slider/Slider.svelte";
-import PlayIcon from "./PlayIcon.svelte";
+    import PlayIcon from "./PlayIcon.svelte";
 
     let value;
+
+    function pausePlayer() {
+        pause();
+    }
+
+    function scrub(event) {
+        seekToTime(event.detail);
+    }
 </script>
 
 <div class="container">
@@ -25,11 +40,13 @@ import PlayIcon from "./PlayIcon.svelte";
         minValue={0}
         maxValue={$playerStore.currentPlaybackduration}
         bind:value={$playerStore.currentPlaybacktime}
+        on:scrub={scrub}
     />
-    {$playerStore.currentPlaybacktime}
+    {formatMediaTime($playerStore.currentPlaybacktime)}
 
-    <PlayIcon />
+    <PlayIcon on:click={togglePlay} />
 
+    {$playerStore.state}
 </div>
 
 <style>
