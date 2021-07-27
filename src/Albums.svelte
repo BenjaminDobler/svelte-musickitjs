@@ -1,6 +1,5 @@
 <script>
-    import { createEventDispatcher, onMount } from "svelte";
-    import { loadAlbums } from "./service/musikkit";
+    import { createEventDispatcher } from "svelte";
     import Album from "./Album.svelte";
 
     const dispatch = createEventDispatcher();
@@ -8,7 +7,6 @@
     export let albums = [];
 
     function itemclicked(album) {
-        console.log("on select ", album);
         dispatch("album", album);
     }
 </script>

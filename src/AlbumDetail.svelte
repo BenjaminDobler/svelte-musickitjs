@@ -1,6 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import CoverImage from "./components/CoverImage.svelte";
+import { formatMediaTime } from "./service/musikkit";
 
     const dispatch = createEventDispatcher();
 
@@ -9,10 +10,14 @@
     function play(track) {
         dispatch("playTrack", track);
     }
+
+    function formatMilliseconds(ms) {
+        return formatMediaTime(ms/1000)
+    }
 </script>
 
 <section>
-    <CoverImage artwork={album.attributes.artwork} width={120} height={120} />
+    <CoverImage artwork={album.attributes.artwork} width="220px" height="220px" />
     Artist name: {album?.attributes?.artistName}
 
     Tracks {album.relationships.tracks.data.length}
@@ -28,7 +33,7 @@
                     {track.attributes.name}
                 </div>
                 <div class="song-list-time song-list-cell">
-                    {track.attributes.durationInMillis}
+                    {formatMilliseconds(track.attributes.durationInMillis)}
                 </div>
             </div>
         {/each}

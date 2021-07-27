@@ -1,8 +1,8 @@
 <script>
     import { formatArtwork } from "../service/musikkit";
 
-    export let width = '60px';
-    export let height = '60px';
+    export let width = "60px";
+    export let height = "60px";
     export let aspectRatio;
     export let artwork;
     let paddingTop = 0;
@@ -18,7 +18,7 @@
         return height;
     }
 
-    function getPaddingTop () {
+    function getPaddingTop() {
         if (aspectRatio) {
             return "100%";
         }
@@ -28,7 +28,11 @@
 
 <div
     class="album-thumb"
-    style="background-image: url('{artworkFormatted(artwork)}');width: {width};height: {getHeight(height)};padding-top: {getPaddingTop()}"
+    style="background-image: url('{artworkFormatted(
+        artwork
+    )}');width: {width};height: {getHeight(
+        height
+    )};padding-top: {getPaddingTop()}"
 />
 
 <style>

@@ -75,6 +75,11 @@ export function formatArtwork(artwork, width = 100, height = 100) {
     return MusicKit.formatArtworkURL(artwork, width, height);
 }
 
+export function formatMediaTime(ms) {
+    
+    return MusicKit.formatMediaTime(ms);
+}
+
 
 export function addToPlaylist(track) {
     musicKit
