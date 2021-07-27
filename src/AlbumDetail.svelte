@@ -19,21 +19,20 @@
 
     <div class="song-list">
         {#each album.relationships.tracks.data as track}
-            <div class="song-list-row" >
-                <div>0</div>
-                <div>{track.attributes.name}</div>
-                <div>0:30</div>
+            <div class="song-row" on:click={() => play(track)}>
+                <div class="song-list-something song-list-cell" />
+                <div class="song-list-index song-list-cell">
+                    {track.attributes.trackNumber}
+                </div>
+                <div class="song-list-name song-list-cell">
+                    {track.attributes.name}
+                </div>
+                <div class="song-list-time song-list-cell">
+                    {track.attributes.durationInMillis}
+                </div>
             </div>
         {/each}
     </div>
-    <ul>
-        {#each album.relationships.tracks.data as track}
-            <li>
-                {track.attributes.name}
-                <button on:click={() => play(track)}>Play</button>
-            </li>
-        {/each}
-    </ul>
 </section>
 
 <style>
@@ -41,13 +40,32 @@
         padding-top: 60px;
     }
 
-    .song-list-row {
-        display: grid;
-        grid-template-areas: "song-artwork song-rank song-icon song-name";
-        grid-template-columns: auto auto auto 1fr;
-        align-items: center;
+    .song-list {
+        display: table;
+        width: 100%;
+    }
+
+    .song-row {
+        display: table-row;
+        background: #392f2f;
         height: 46px;
-        -webkit-padding-start: 7px;
-        padding-inline-start: 7px;
+        vertical-align: middle;
+        align-items: center;
+        color: #e2d8d8;
+    }
+
+    .song-row:nth-child(odd) {
+        background: #352b2b;
+    }
+
+    .song-list-name {
+        width: 100%;
+    }
+
+    .song-list-cell {
+        display: table-cell;
+        padding-left: 5px;
+        padding-right: 5px;
+        vertical-align: middle;
     }
 </style>
