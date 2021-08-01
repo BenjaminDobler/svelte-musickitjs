@@ -8,7 +8,7 @@ export const routes = {
 
     // Using named parameters, with last being optional
     '/albums': Albums,
-    '/album': AlbumDetail,
+    '/album/:albumID': AlbumDetail,
 
     // This is optional, but if present it must be the last
     '*': NotFound,

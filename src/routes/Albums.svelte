@@ -1,21 +1,19 @@
 <script>
+    import { push } from "svelte-spa-router";
+
     import AlbumItem from "../components/AlbumItem.svelte";
     import { loadAlbum } from "../service/musikkit";
     import { store } from "../store/musicstore";
 
     function albumSelected(album) {
-        loadAlbum(album.id);
+        push("/album/" + album.id);
     }
 </script>
 
 <section>
     <div class="album-container">
         {#each $store.albums as album}
-            <AlbumItem
-                class="album"
-                {album}
-                on:click={() => albumSelected(album)}
-            />
+            <AlbumItem {album} on:click={() => albumSelected(album)} />
         {/each}
     </div>
 </section>

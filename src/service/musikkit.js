@@ -65,9 +65,9 @@ export async function loadAlbums() {
 }
 
 export async function loadAlbum(id) {
+    await setup;
     const album = await musicKit.api.library.album(id);
     store.update(data => ({ ...data, selectedAlbum: album, selectedView: 'album' }));
-    push('/album');
 }
 
 export function formatArtwork(artwork, width = 100, height = 100) {
