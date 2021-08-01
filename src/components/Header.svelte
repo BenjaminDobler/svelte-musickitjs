@@ -1,9 +1,12 @@
 <script>
-    import Player from "./player/Player.svelte";
+    import { playerStore, store } from "../store/musicstore";
+import Player from "./player/Player.svelte";
 </script>
 
 <div class="header">
+    {#if $playerStore.playingTrack}
     <Player />
+    {/if}
 </div>
 
 <style>

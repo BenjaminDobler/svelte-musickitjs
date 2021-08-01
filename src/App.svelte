@@ -1,11 +1,11 @@
 <script lang="ts">
+	import Router from "svelte-spa-router";
 	import { onMount } from "svelte";
-	import AlbumDetail from "./AlbumDetail.svelte";
-	import Albums from "./Albums.svelte";
 	import { store } from "./store/musicstore";
 	import { addToPlaylist, loadAlbum, loadAlbums } from "./service/musikkit";
 	import Header from "./components/Header.svelte";
 	import Navigation from "./components/Navigation.svelte";
+	import { routes } from "./routes/routes";
 
 	onMount(async () => {
 		await loadAlbums();
@@ -31,18 +31,7 @@
 <Header />
 <Navigation />
 <div class="main-content">
-	{#if $store.selectedView === "albums"}
-		<Albums albums={$store.albums} on:album={albumSelected} />
-	{/if}
-
-	{#if $store.selectedView === "album"}
-		<button
-			on:click={() =>
-				store.update((data) => ({ ...data, selectedView: "albums" }))}
-			>Back</button
-		>
-		<AlbumDetail album={$store.selectedAlbum} on:playTrack={playTrack} />
-	{/if}
+	<Router {routes} />
 </div>
 
 <style>
@@ -51,6 +40,7 @@
 		margin: 0;
 		padding: 0;
 		background: #1f1f1f;
+		color: #e2d8d8;
 
 		--primaryColor: #fa2d48;
 		--playerBackground: rgb(45 45 45 / 88%);

@@ -1,29 +1,32 @@
 <script>
     import { createEventDispatcher } from "svelte";
-    import CoverImage from "./components/CoverImage.svelte";
-import { formatMediaTime } from "./service/musikkit";
+    import CoverImage from "../components/CoverImage.svelte";
+    import { formatMediaTime } from "../service/musikkit";
+    import { store } from "../store/musicstore";
 
     const dispatch = createEventDispatcher();
-
-    export let album;
 
     function play(track) {
         dispatch("playTrack", track);
     }
 
     function formatMilliseconds(ms) {
-        return formatMediaTime(ms/1000)
+        return formatMediaTime(ms / 1000);
     }
 </script>
 
 <section>
-    <CoverImage artwork={album.attributes.artwork} width="270px" height="270px" />
-    Artist name: {album?.attributes?.artistName}
+    <CoverImage
+        artwork={$store.selectedAlbum.attributes.artwork}
+        width="270px"
+        height="270px"
+    />
+    Artist name: {$store.selectedAlbum.attributes?.artistName}
 
-    Tracks {album.relationships.tracks.data.length}
+    Tracks {$store.selectedAlbum.relationships.tracks.data.length}
 
     <div class="song-list">
-        {#each album.relationships.tracks.data as track}
+        {#each $store.selectedAlbum.relationships.tracks.data as track}
             <div class="song-row" on:click={() => play(track)}>
                 <div class="song-list-something song-list-cell" />
                 <div class="song-list-index song-list-cell">

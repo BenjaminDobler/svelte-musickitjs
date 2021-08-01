@@ -1,5 +1,5 @@
 <script>
-    import CoverImage from "./components/CoverImage.svelte";
+    import CoverImage from "./CoverImage.svelte";
 
     export let album;
 </script>

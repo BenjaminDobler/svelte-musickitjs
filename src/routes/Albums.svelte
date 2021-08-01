@@ -1,20 +1,21 @@
 <script>
-    import { createEventDispatcher } from "svelte";
-    import Album from "./Album.svelte";
+    import AlbumItem from "../components/AlbumItem.svelte";
+    import { loadAlbum } from "../service/musikkit";
+    import { store } from "../store/musicstore";
 
-    const dispatch = createEventDispatcher();
-
-    export let albums = [];
-
-    function itemclicked(album) {
-        dispatch("album", album);
+    function albumSelected(album) {
+        loadAlbum(album.id);
     }
 </script>
 
 <section>
     <div class="album-container">
-        {#each albums as album}
-            <Album class="album" {album} on:click={() => itemclicked(album)} />
+        {#each $store.albums as album}
+            <AlbumItem
+                class="album"
+                {album}
+                on:click={() => albumSelected(album)}
+            />
         {/each}
     </div>
 </section>
