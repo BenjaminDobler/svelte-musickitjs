@@ -14,7 +14,7 @@
         position: fixed;
         top: 0;
         width: 100vw;
-        left: 0;
+        left: 260px;
         overflow: hidden;
         height: 55px;
         background-color: var(--playerBackground);

@@ -6,9 +6,7 @@
     import {
         addToPlaylist,
         formatMediaTime,
-        loadAlbum,
         loadPlaylist,
-        loadPlaylists,
     } from "../service/musikkit";
     import { playlistStore, store } from "../store/musicstore";
 
@@ -16,7 +14,6 @@
 
     onMount(() => {
         console.log("Load playlist ", params.playlistID);
-        loadPlaylist(params.playlistID);
     });
 
     function play(track) {
@@ -26,9 +23,16 @@
     function formatMilliseconds(ms) {
         return formatMediaTime(ms / 1000);
     }
+
+    function paramsChange(id) {
+        loadPlaylist(params.playlistID);
+    }
+
+    $: paramsChanged = paramsChange(params.playlistID);
 </script>
 
 <section>
+    Playlist
     <CoverImage
         artwork={$playlistStore.selectedPlaylist?.attributes.artwork}
         width="270px"
