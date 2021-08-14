@@ -1,4 +1,4 @@
-import { store, playerStore } from "../store/musicstore";
+import { store, playerStore, playlistStore } from "../store/musicstore";
 import { developerToken } from "../credentials";
 import { get } from "svelte/store";
 import { pop, push } from "svelte-spa-router";
@@ -104,6 +104,24 @@ export function togglePlay() {
 
 export function seekToTime(seconds) {
     musicKit.player.seekToTime(seconds);
+}
+
+
+export async function loadPlaylists() {
+    await setup;
+
+    const playlists = await musicKit.api.library.playlists(null);
+    console.log(playlists);
+    playlistStore.update(data => ({ playlists }));
+}
+
+export async function loadPlaylist(id) {
+    await setup;
+    console.log('load p', id);
+    const playlist = await musicKit.api.library.playlist(id);
+    console.log(playlist);
+    playlistStore.update(data => ({ ...data, selectedPlaylist: playlist }));
+
 }
 
 init();

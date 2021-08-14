@@ -14,3 +14,8 @@ export const playerStore = writable({
 	playingTrack: null,
 	state: 0
 });
+
+export const playlistStore = writable({
+	playlists: [],
+	selectedPlaylist: null
+});

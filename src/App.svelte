@@ -2,13 +2,14 @@
 	import Router from "svelte-spa-router";
 	import { onMount } from "svelte";
 	import { store } from "./store/musicstore";
-	import { addToPlaylist, loadAlbum, loadAlbums } from "./service/musikkit";
+	import { addToPlaylist, loadAlbum, loadAlbums, loadPlaylists } from "./service/musikkit";
 	import Header from "./components/Header.svelte";
 	import Navigation from "./components/Navigation.svelte";
 	import { routes } from "./routes/routes";
 
 	onMount(async () => {
 		await loadAlbums();
+		await loadPlaylists();
 	});
 
 	function albumSelected(event) {
