@@ -6,7 +6,7 @@
 
 <div class="container" on:click>
     <CoverImage width="100%" aspectRatio="1:1" artwork={album.attributes.artwork} />
-    {album.attributes.name}
+    <span class="album-title">{album.attributes.name}</span>
 </div>
 
 <style>
@@ -17,4 +17,10 @@
         background: #00ff00; */
         margin: 10px;
     }
+
+    /* .album-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    } */
 </style>

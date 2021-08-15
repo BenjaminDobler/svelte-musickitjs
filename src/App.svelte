@@ -45,6 +45,7 @@
 
 		--primaryColor: #fa2d48;
 		--playerBackground: rgb(45 45 45 / 88%);
+		font-family: -apple-system,BlinkMacSystemFont,"Apple Color Emoji","SF Pro","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
 	}
 
 	.main-content {

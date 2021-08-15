@@ -1,4 +1,4 @@
-import { store, playerStore, playlistStore } from "../store/musicstore";
+import { store, playerStore, playlistStore, artistsStore } from "../store/musicstore";
 import { developerToken } from "../credentials";
 import { get } from "svelte/store";
 import { pop, push } from "svelte-spa-router";
@@ -107,21 +107,48 @@ export function seekToTime(seconds) {
 }
 
 
-export async function loadPlaylists() {
+export async function loadArtists() {
+    console.log('load artists');
+    await setup;
+    const artists = await musicKit.api.library.artists(null);
+    console.log('artists ', artists);
+    artistsStore.update(data => ({ artists }));
+}
+
+export async function loadLibraryArtistDetail(artistId) {
     await setup;
 
+    const artist = await musicKit.api.library.artist(artistId, { include: 'albums,playlists' });
+    const albumIds = artist.relationships.albums.data.map((a) => a.id);
+    const albums = await musicKit.api.library.albums(albumIds);
+
+    console.log(artist, albums);
+
+    artistsStore.update((data) => ({ ...data, selectedArtistAlbums: albums }));
+
+
+}
+
+export async function loadLibraryTracks() {
+    await setup;
+    const tracks = await musicKit.api.library.tracks(null);
+    console.log('tracks ', tracks);
+    // artistsStore.update(data => ({ artists }));
+}
+
+
+export async function loadPlaylists() {
+    await setup;
     const playlists = await musicKit.api.library.playlists(null);
-    console.log(playlists);
     playlistStore.update(data => ({ playlists }));
 }
 
 export async function loadPlaylist(id) {
     await setup;
-    console.log('load p', id);
     const playlist = await musicKit.api.library.playlist(id);
-    console.log(playlist);
     playlistStore.update(data => ({ ...data, selectedPlaylist: playlist }));
 
 }
 
 init();
+

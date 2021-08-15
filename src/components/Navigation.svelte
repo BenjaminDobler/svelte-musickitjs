@@ -13,14 +13,13 @@
         <li>Jetzt hören</li>
         <li>Entdecken</li>
         <li>Radio</li>
-        <li on:click={() => push("/albums")}>Albums</li>
     </ul>
-
     Mediathek
+
     <ul>
-        <li>Jetzt hören</li>
-        <li>Entdecken</li>
-        <li>Radio</li>
+        <li on:click={() => push("/library/artists")}>Artists</li>
+        <li>Tracks</li>
+        <li on:click={() => push("/albums")}>Albums</li>
     </ul>
     Playlist
     <ul>
@@ -48,6 +47,9 @@
         border-inline-end-color: rgba(255, 255, 255, 0.1);
         border-inline-end-style: solid;
         border-inline-end-width: 1px;
+        font-weight: 400;
+        font-style: normal;
+        
     }
 
     .playlist-item {
