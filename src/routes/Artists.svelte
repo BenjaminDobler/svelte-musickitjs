@@ -33,6 +33,7 @@
     <ul class="artist-list">
         {#each $artistsStore.artists as artist}
             <li class="artist-item" on:click={() => selectArtist(artist.id)}>
+                <div class="artist-artwork"></div>
                 {artist.attributes.name}
             </li>
         {/each}
@@ -73,5 +74,12 @@
     .album-container {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
+    }
+
+    .artist-artwork {
+        width: 36px;
+        height: 36px;
+        background: #000;
+        border-radius: 50%;
     }
 </style>

@@ -66,17 +66,17 @@
 <style>
     .thumb {
         width: 20px;
-        height: 20px;
-        background: #666;
+        height: 5px;
+        background: #B8B8B8;
         position: absolute;
         left: 0;
         top: 0;
     }
 
     .slider {
-        width: 600px;
-        height: 20px;
+        width: 100%;
+        height: 5px;
         position: relative;
-        border: 1px solid #000;
+        background: #5f5f5f
     }
 </style>
