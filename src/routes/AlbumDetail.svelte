@@ -3,6 +3,7 @@
     // import { params } from "svelte-spa-router";
 
     import CoverImage from "../components/CoverImage.svelte";
+import Tracks from "../components/Tracks.svelte";
     import {
         addToPlaylist,
         formatMediaTime,
@@ -37,7 +38,8 @@
         Artist name: {$store.selectedAlbum?.attributes?.artistName}
 
         Tracks {$store.selectedAlbum?.relationships.tracks.data.length}
-        <div class="song-list">
+        <Tracks tracks={$store.selectedAlbum?.relationships?.tracks?.data} />
+        <!-- <div class="song-list">
             {#each $store.selectedAlbum?.relationships?.tracks?.data as track}
                 <div class="song-row" on:click={() => play(track)}>
                     <div class="song-list-something song-list-cell" />
@@ -52,7 +54,7 @@
                     </div>
                 </div>
             {/each}
-        </div>
+        </div> -->
     {/if}
 </section>
 

@@ -25,3 +25,10 @@ export const artistsStore = writable({
 	selectedArtistAlbums: [],
 	selectedArtist: null
 });
+
+export const radioStore = writable({
+	stations: [],
+	selectedStation: null
+});
+
+export const tracksStore = writable([]);

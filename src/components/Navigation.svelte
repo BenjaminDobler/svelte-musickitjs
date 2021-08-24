@@ -33,7 +33,7 @@
     <ul>
         <li class="playlist-item">Jetzt hören</li>
         <li class="playlist-item">Entdecken</li>
-        <li class="playlist-item">Radio</li>
+        <li class="playlist-item" on:click={() => push("/catalog/radios")}>Radio</li>
     </ul>
 
     <span class="headline">Mediathek</span>
@@ -43,7 +43,7 @@
             <NavIcon fill="#fa586a" type="artist" />
             Artists
         </li>
-        <li class="playlist-item">
+        <li class="playlist-item" on:click={() => push("/library/tracks")}>
             <NavIcon fill="#fa586a" type="tracks" />
             Tracks
         </li>

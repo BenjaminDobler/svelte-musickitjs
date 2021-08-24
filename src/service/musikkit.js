@@ -1,4 +1,4 @@
-import { store, playerStore, playlistStore, artistsStore } from "../store/musicstore";
+import { store, playerStore, playlistStore, artistsStore, radioStore, tracksStore } from "../store/musicstore";
 import { developerToken } from "../credentials";
 import { get } from "svelte/store";
 import { pop, push } from "svelte-spa-router";
@@ -7,6 +7,30 @@ export let albums = [];
 let musicKit;
 let setup;
 let initialized = false;
+
+
+
+function getApiHeadersWithUserToken() {
+    const musicKitInstance = MusicKit.getInstance();
+
+    return {
+        'Music-User-Token': musicKitInstance.musicUserToken,
+        Authorization: `Bearer ${musicKitInstance.developerToken}`,
+        'Content-Type': 'application/json'
+    };
+}
+
+async function getURL(url) {
+    // Default options are marked with *
+    const response = await fetch('https://api.music.apple.com/v1' + url, {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: getApiHeadersWithUserToken()
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
+
 
 export async function init() {
     setup = new Promise((resolve) => {
@@ -55,6 +79,33 @@ export async function init() {
         console.log('error ', error);
     }
 
+
+
+    console.log('before heay');
+    const heavy = await getURL(`/catalog/${MusicKit.getInstance().api.storefrontId}/charts?types=albums&chart=most-played`)
+    console.log("heavy", heavy);
+    getRecentlyPlayed();
+
+}
+
+export async function getRecentlyPlayed() {
+    const recentlyPlayed = await getURL(`/me/recent/played?limit=10`)
+    console.log("recentlyPlayed", recentlyPlayed);
+}
+
+
+export async function getRadioStations() {
+    await setup;
+    const stations = (await getURL(`/catalog/${MusicKit.getInstance().api.storefrontId}/stations?filter[featured]=apple-music-live-radio`)).data;
+    console.log('stations ', stations);
+    radioStore.update((data) => ({ ...data, stations }));
+}
+
+export async function getRadioStation(id) {
+    await setup;
+    const station = (await getURL(`/catalog/${MusicKit.getInstance().api.storefrontId}/stations/${id}`));
+    console.log('station ', station);
+    radioStore.update((data) => ({ ...data, selectedStation: station }));
 }
 
 export async function loadAlbums() {
@@ -110,7 +161,7 @@ export function seekToTime(seconds) {
 export async function loadArtists() {
     console.log('load artists');
     await setup;
-    const artists = await musicKit.api.library.artists(null);
+    const artists = await musicKit.api.library.artists(null, { limit: 100 });
     console.log('artists ', artists);
     artistsStore.update(data => ({ artists }));
 }
@@ -131,9 +182,8 @@ export async function loadLibraryArtistDetail(artistId) {
 
 export async function loadLibraryTracks() {
     await setup;
-    const tracks = await musicKit.api.library.tracks(null);
-    console.log('tracks ', tracks);
-    // artistsStore.update(data => ({ artists }));
+    const tracks = (await getURL(`/me/library/songs`));
+    tracksStore.update(data => tracks.data);
 }
 
 
@@ -149,6 +199,8 @@ export async function loadPlaylist(id) {
     playlistStore.update(data => ({ ...data, selectedPlaylist: playlist }));
 
 }
+
+
 
 init();
 
