@@ -18,12 +18,17 @@
 
 <style>
     .album-container {
+        box-sizing: border-box;
         padding-top: 75px;
+        padding-left: 20px;
+        padding-right: 20px;
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        width: 100%;
+        grid-column-gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
     }
 
-    @media only screen and (max-width: 600px) {
+    /* @media only screen and (max-width: 600px) {
         .album-container {
             grid-template-columns: repeat(3, 1fr);
         }
@@ -38,5 +43,5 @@
         .album-container {
             grid-template-columns: repeat(7, 1fr);
         }
-    }
+    } */
 </style>
