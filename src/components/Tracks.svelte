@@ -12,11 +12,20 @@
     function formatMilliseconds(ms) {
         return formatMediaTime(ms / 1000);
     }
+
+    function dragStart(event, track) {
+        event.dataTransfer.setData("text/plain", JSON.stringify(track));
+    }
 </script>
 
 <div class="song-list">
     {#each tracks as track}
-        <div class="song-row" on:click={() => play(track)}>
+        <div
+            class="song-row"
+            on:click={() => play(track)}
+            draggable={true}
+            on:dragstart={(event) => dragStart(event, track)}
+        >
             <div class="song-list-something song-list-cell" />
             {#if showArtwork}
                 <div class="song-list-something song-list-cell">
@@ -45,19 +54,21 @@
     .song-list {
         display: table;
         width: 100%;
+        font-size: 13px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.92);
     }
 
     .song-row {
         display: table-row;
-        background: #392f2f;
+        background: #232323;
         height: 46px;
         vertical-align: middle;
         align-items: center;
-        color: #e2d8d8;
     }
 
     .song-row:nth-child(odd) {
-        background: #352b2b;
+        background: #1f1f1f;
     }
 
     .song-list-name {

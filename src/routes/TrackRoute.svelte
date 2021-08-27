@@ -10,7 +10,12 @@
     });
 </script>
 
+<section>
 <Tracks showArtwork={true} tracks={$tracksStore} />
-
+</section>
 <style>
+
+    section {
+        padding-top: 57px;
+    }
 </style>

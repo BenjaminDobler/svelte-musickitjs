@@ -16,7 +16,8 @@ function getApiHeadersWithUserToken() {
     return {
         'Music-User-Token': musicKitInstance.musicUserToken,
         Authorization: `Bearer ${musicKitInstance.developerToken}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
     };
 }
 
@@ -200,7 +201,21 @@ export async function loadPlaylist(id) {
 
 }
 
-
+export async function addTrackToPlaylist(track, playlist) {
+    console.log('add track ', track, playlist);
+    const data = {
+        data: [{id: track.id}]
+    }
+    //https://api.music.apple.com/v1/me/library/playlists/{id}/tracks
+    const response = await fetch(`https://api.music.apple.com/v1/me/library/playlists/${playlist.id}/tracks`, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: getApiHeadersWithUserToken(),
+        body: JSON.stringify(data)
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
 
 init();
 

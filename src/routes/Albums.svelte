@@ -1,8 +1,6 @@
 <script>
     import { push } from "svelte-spa-router";
-
     import AlbumItem from "../components/AlbumItem.svelte";
-    import { loadAlbum } from "../service/musikkit";
     import { store } from "../store/musicstore";
 
     function albumSelected(album) {

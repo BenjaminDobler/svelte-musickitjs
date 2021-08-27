@@ -74,6 +74,7 @@
         margin-right: 50px;
     }
     .container {
+        flex-grow: 1;
         display: flex;
         color: #a19da4;
         height: 55px;

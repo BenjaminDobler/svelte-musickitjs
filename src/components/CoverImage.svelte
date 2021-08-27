@@ -37,6 +37,7 @@
 
 <style>
     .album-thumb {
+        background-color: #000;
         background-size: cover;
         margin-right: 10px;
         border-radius: 6px;

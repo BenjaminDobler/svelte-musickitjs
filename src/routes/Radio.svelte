@@ -1,17 +1,14 @@
 <script>
     import { onMount } from "svelte";
-    import { push } from "svelte-spa-router";
     import CoverImage from "../components/CoverImage.svelte";
     import { addToPlaylist, getRadioStations } from "../service/musikkit";
     import { radioStore } from "../store/musicstore";
 
     onMount(() => {
-        console.log("load radios");
         getRadioStations();
     });
 
     function loadStation(station) {
-        //push('/catalog/radio/'+station.id)
         addToPlaylist(station);
     }
 </script>

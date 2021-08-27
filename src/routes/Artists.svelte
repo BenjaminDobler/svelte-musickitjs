@@ -1,10 +1,8 @@
 <script>
     import { onMount } from "svelte";
-
     import { push } from "svelte-spa-router";
     import AlbumItem from "../components/AlbumItem.svelte";
     import { loadArtists, loadLibraryArtistDetail } from "../service/musikkit";
-
     import { artistsStore, store } from "../store/musicstore";
 
     onMount(() => {
@@ -16,13 +14,11 @@
     }
 
     function selectArtist(id) {
-        // loadLibraryArtistDetail(artist.id);
         push("/library/artists/" + id);
     }
 
     export let params = {};
     function paramsChange(id) {
-        console.log("load artist ", id);
         loadLibraryArtistDetail(id);
     }
 
@@ -33,7 +29,7 @@
     <ul class="artist-list">
         {#each $artistsStore.artists as artist}
             <li class="artist-item" on:click={() => selectArtist(artist.id)}>
-                <div class="artist-artwork"></div>
+                <div class="artist-artwork" />
                 {artist.attributes.name}
             </li>
         {/each}
