@@ -35,13 +35,11 @@
         {/each}
     </ul>
 
-    <div>
         <div class="album-container">
             {#each $artistsStore.selectedArtistAlbums || [] as album}
                 <AlbumItem {album} on:click={() => albumSelected(album)} />
             {/each}
         </div>
-    </div>
 </section>
 
 <style>
@@ -68,8 +66,14 @@
         vertical-align: middle;
     }
     .album-container {
+        box-sizing: border-box;
+        padding-top: 25px;
+        padding-left: 20px;
+        padding-right: 20px;
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        width: 100%;
+        grid-column-gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 
     .artist-artwork {

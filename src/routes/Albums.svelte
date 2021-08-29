@@ -25,23 +25,6 @@
         display: grid;
         width: 100%;
         grid-column-gap: 20px;
-        grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
-
-    /* @media only screen and (max-width: 600px) {
-        .album-container {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
-    @media only screen and (max-width: 400px) {
-        .album-container {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    @media only screen and (min-width: 1000px) {
-        .album-container {
-            grid-template-columns: repeat(7, 1fr);
-        }
-    } */
 </style>

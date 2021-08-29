@@ -3,7 +3,7 @@
 
     export let width = "60px";
     export let height = "60px";
-    export let aspectRatio;
+    export let aspectRatio = null;
     export let artwork;
     let paddingTop = 0;
 

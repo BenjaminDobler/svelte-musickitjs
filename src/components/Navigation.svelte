@@ -59,6 +59,10 @@ import { addTrackToPlaylist } from "../service/musikkit";
     <span class="headline">Mediathek</span>
 
     <ul>
+        <li class="playlist-item" on:click={() => push("/library/recently")}>
+            <NavIcon fill="#fa586a" type="recently" />
+            <span class="icon-label">Recently played</span>
+        </li>
         <li class="playlist-item" on:click={() => push("/library/artists")}>
             <NavIcon fill="#fa586a" type="artist" />
             <span class="icon-label">Artists</span>

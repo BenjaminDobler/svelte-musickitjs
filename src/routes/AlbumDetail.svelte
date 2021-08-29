@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import Button from "../components/Button.svelte";
     import CoverImage from "../components/CoverImage.svelte";
     import Tracks from "../components/Tracks.svelte";
     import { loadAlbum } from "../service/musikkit";
@@ -30,6 +31,9 @@
                 >{$store.selectedAlbum?.attributes?.genreNames[0]} - {$store
                     .selectedAlbum?.attributes?.releaseDate}</span
             >
+            <div>
+                <Button />
+            </div>
         </div>
     </div>
 

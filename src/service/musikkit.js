@@ -10,6 +10,36 @@ let initialized = false;
 
 
 
+/*
+dictionary MusicKit.Events {
+    string authorizationStatusDidChange;
+    string authorizationStatusWillChange;
+    string eligibleForSubscribeView;
+    string loaded;
+    string mediaCanPlay;
+    string mediaItemDidChange;
+    string mediaItemWillChange;
+    string mediaPlaybackError;
+    string metadataDidChange;
+    string playbackBitrateDidChange;
+    string playbackDurationDidChange;
+    string playbackProgressDidChange;
+    string playbackStateDidChange;
+    string playbackStateWillChange;
+    string playbackTargetAvailableDidChange;
+    string playbackTimeDidChange;
+    string playbackVolumeDidChange;
+    string primaryPlayerDidChange;
+    string queueItemsDidChange;
+    string queuePositionDidChange;
+    string storefrontCountryCodeDidChange;
+    string storefrontIdentifierDidChange;
+    string userTokenDidChange;
+};
+*/
+
+
+
 function getApiHeadersWithUserToken() {
     const musicKitInstance = MusicKit.getInstance();
 
@@ -32,6 +62,15 @@ async function getURL(url) {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
+
+export async function toggleLogin() {
+    console.log(musicKit);
+    if (musicKit.isAuthorized) {
+        musicKit.unauthorize();
+    } else {
+        musicKit.authorize();
+    }
+}
 
 export async function init() {
     setup = new Promise((resolve) => {
@@ -73,8 +112,11 @@ export async function init() {
         playerStore.update(data => ({ ...data, state: e.state }));
     });
 
+
+
     try {
         await musicKit.authorize();
+        console.log('Authorized', musicKit);
     } catch (error) {
         // Handle cases when authorization fails
         console.log('error ', error);
@@ -181,10 +223,11 @@ export async function loadLibraryArtistDetail(artistId) {
 
 }
 
-export async function loadLibraryTracks() {
+export async function loadLibraryTracks(offset=0, limit=50) {
     await setup;
-    const tracks = (await getURL(`/me/library/songs`));
+    const tracks = (await getURL(`/me/library/songs?offset=${offset}&limit=${limit}`));
     tracksStore.update(data => tracks.data);
+    return tracks;
 }
 
 
@@ -204,7 +247,7 @@ export async function loadPlaylist(id) {
 export async function addTrackToPlaylist(track, playlist) {
     console.log('add track ', track, playlist);
     const data = {
-        data: [{id: track.id}]
+        data: [{ id: track.id }]
     }
     //https://api.music.apple.com/v1/me/library/playlists/{id}/tracks
     const response = await fetch(`https://api.music.apple.com/v1/me/library/playlists/${playlist.id}/tracks`, {
