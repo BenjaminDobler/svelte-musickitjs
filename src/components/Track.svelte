@@ -64,9 +64,7 @@
         background: #1f1f1f;
     }
 
-    .song-list-name {
-        width: 100%;
-    }
+
 
     .song-list-cell {
         display: table-cell;

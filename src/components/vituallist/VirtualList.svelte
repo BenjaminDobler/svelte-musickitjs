@@ -163,7 +163,7 @@
 	>
 		{#each visible as row (row.index)}
 			<svelte-virtual-list-row>
-				<slot test={row.data} item={row.data}>Missing template</slot>
+				<slot item={row.data}>Missing template</slot>
 			</svelte-virtual-list-row>
 		{/each}
 	</svelte-virtual-list-contents>

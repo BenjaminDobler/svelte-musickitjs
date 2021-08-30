@@ -32,3 +32,4 @@ export const radioStore = writable({
 });
 
 export const tracksStore = writable([]);
+export const recentlyStore = writable([]);

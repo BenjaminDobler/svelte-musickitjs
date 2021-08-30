@@ -1,4 +1,4 @@
-import { store, playerStore, playlistStore, artistsStore, radioStore, tracksStore } from "../store/musicstore";
+import { store, playerStore, playlistStore, artistsStore, radioStore, tracksStore, recentlyStore } from "../store/musicstore";
 import { developerToken } from "../credentials";
 import { get } from "svelte/store";
 import { pop, push } from "svelte-spa-router";
@@ -122,18 +122,12 @@ export async function init() {
         console.log('error ', error);
     }
 
-
-
-    console.log('before heay');
-    const heavy = await getURL(`/catalog/${MusicKit.getInstance().api.storefrontId}/charts?types=albums&chart=most-played`)
-    console.log("heavy", heavy);
-    getRecentlyPlayed();
-
 }
 
 export async function getRecentlyPlayed() {
+    await setup;
     const recentlyPlayed = await getURL(`/me/recent/played?limit=10`)
-    console.log("recentlyPlayed", recentlyPlayed);
+    recentlyStore.update(() => recentlyPlayed.data);
 }
 
 
@@ -223,7 +217,7 @@ export async function loadLibraryArtistDetail(artistId) {
 
 }
 
-export async function loadLibraryTracks(offset=0, limit=50) {
+export async function loadLibraryTracks(offset = 0, limit = 50) {
     await setup;
     const tracks = (await getURL(`/me/library/songs?offset=${offset}&limit=${limit}`));
     tracksStore.update(data => tracks.data);

@@ -7,12 +7,14 @@ import ArtistDetail from './ArtistDetail.svelte';
 import Radio from './Radio.svelte';
 import RadioDetail from './RadioDetail.svelte';
 import TrackRoute from './TrackRoute.svelte';
+import RecentlyRoute from './RecentlyRoute.svelte';
 
 
 export const routes = {
     '/': Albums,
     '/albums': Albums,
     '/album/:albumID': AlbumDetail,
+    '/library/recently': RecentlyRoute,
     '/playlist/:playlistID': PlaylistDetail,
     '/library/artists/': Artists,
     '/library/artists/:artistID': Artists,
